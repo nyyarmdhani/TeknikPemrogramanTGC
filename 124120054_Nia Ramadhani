@@ -1,0 +1,72 @@
+# ==============================
+# Tugas 1: Sensor & SensorSeismik
+# ==============================
+
+class Sensor:
+    def _init_(self, id_sensor, lokasi, jenis):
+        self.id_sensor = id_sensor
+        self.lokasi = lokasi
+        self.jenis = jenis
+
+    def info(self):
+        return f"Sensor ID: {self.id_sensor}, Lokasi: {self.lokasi}, Jenis: {self.jenis}"
+
+
+class SensorSeismik(Sensor):
+    def _init_(self, id_sensor, lokasi, jenis, frekuensi_sampling):
+        super()._init_(id_sensor, lokasi, jenis)
+        self.frekuensi_sampling = frekuensi_sampling
+
+    def jumlah_sampel(self, durasi_detik):
+        return int(self.frekuensi_sampling * durasi_detik)
+
+
+# ==============================
+# Tugas 2: Survey & turunannya
+# ==============================
+from abc import ABC, abstractmethod
+
+class Survey(ABC):
+    @abstractmethod
+    def processing(self):
+        pass
+
+
+class SeismicSurvey(Survey):
+    def processing(self):
+        print("Melakukan filtering data seismik...")
+
+
+class GravitySurvey(Survey):
+    def processing(self):
+        print("Melakukan upward continuation pada data gravitasi...")
+
+
+class MagnetikSurvey(Survey):
+    def processing(self):
+        print("Melakukan anomaly mapping pada data magnetik...")
+
+
+# ==============================
+# Main Program
+# ==============================
+if _name_ == "_main_":
+    # Tugas 1
+    print("=== Tugas 1: Sensor ===")
+    sensor1 = Sensor("S001", "Jakarta", "Temperature")
+    print(sensor1.info())
+
+    sensor_seismik = SensorSeismik("SS001", "Bandung", "Seismik", 50)
+    print(sensor_seismik.info())
+    print("Jumlah sampel untuk 10 detik:", sensor_seismik.jumlah_sampel(10))
+
+    # Tugas 2
+    print("\n=== Tugas 2: Survey ===")
+    surveys = [
+        SeismicSurvey(),
+        GravitySurvey(),
+        MagnetikSurvey()
+    ]
+
+    for survey in surveys:
+        survey.processing()

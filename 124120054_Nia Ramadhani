@@ -1,0 +1,29 @@
+import pandas as pd
+
+try:
+    df = pd.read_csv("data_twt.txt")  # ubah sesuai nama file kamu
+except FileNotFoundError:
+    print("File tidak ditemukan. Pastikan nama dan lokasi file benar.")
+    exit()
+
+
+try:
+    t_min = df['twt'].min()
+    df['twt_norm'] = (df['twt'] - t_min) / (600 - t_min)
+except KeyError:
+    print("Kolom 'twt' tidak ditemukan di file.")
+    exit()
+except ZeroDivisionError:
+    print("Terjadi pembagian dengan nol pada proses normalisasi.")
+    exit()
+except Exception as e:
+    print(f"\Error lain terjadi: {e}")
+    exit()
+
+
+output_file = "data_twt_normalized.csv"
+df.to_csv(output_file, index=False)
+
+print("Proses selesai!")
+print(f"Hasil disimpan ke: {output_file}")
+print(df)

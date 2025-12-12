@@ -1,0 +1,88 @@
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import io
+
+# -------------------------
+# Generate contoh data seismik
+# -------------------------
+def generate_dummy_seismic(n_traces=200, n_samples=300):
+    np.random.seed(42)
+    data = np.random.normal(0, 1, (n_samples, n_traces))
+    return data
+
+data = generate_dummy_seismic()
+
+# -------------------------
+# Sidebar
+# -------------------------
+st.sidebar.title("Kontrol Plot Seismik")
+
+# Pilihan colormap
+colormap_list = [
+    'gray', 'seismic', 'viridis', 'plasma', 'inferno',
+    'magma', 'cividis', 'jet', 'turbo'
+]
+
+cmap_choice = st.sidebar.selectbox(
+    "Pilih Colormap",
+    colormap_list
+)
+
+# Mode Auto/Manual untuk skala amplitudo
+scale_mode = st.sidebar.radio(
+    "Scale Mode",
+    ["Auto", "Manual"]
+)
+
+# Slider vmin & vmax (muncul jika Manual)
+if scale_mode == "Manual":
+    vmin = st.sidebar.slider("vmin", float(data.min()), float(data.max()), float(data.min()))
+    vmax = st.sidebar.slider("vmax", float(data.min()), float(data.max()), float(data.max()))
+else:
+    vmin, vmax = None, None  # Auto scale
+
+# Opsi tambahan: simpan gambar
+save_option = st.sidebar.checkbox("Aktifkan opsi simpan plot sebagai gambar")
+
+# Tombol simpan
+save_button = None
+if save_option:
+    save_button = st.sidebar.button("Simpan Plot")
+
+# -------------------------
+# Plot seismik
+# -------------------------
+
+st.title("Plot Seismik (Streamlit)")
+
+fig, ax = plt.subplots(figsize=(8, 6))
+
+img = ax.imshow(
+    data,
+    cmap=cmap_choice,
+    aspect="auto",
+    vmin=vmin,
+    vmax=vmax
+)
+
+ax.set_title("Seismic Section")
+ax.set_xlabel("Trace Number")
+ax.set_ylabel("Time (samples)")
+plt.colorbar(img, ax=ax)
+
+st.pyplot(fig)
+
+# -------------------------
+# Save image jika user menekan tombol
+# -------------------------
+if save_button:
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", dpi=300)
+    st.sidebar.download_button(
+        label="Download Gambar",
+        data=buf.getvalue(),
+        file_name="seismic_plot.png",
+        mime="image/png"
+    )

@@ -1,0 +1,96 @@
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+import io
+
+# -----------------------------
+# Generate dummy magnetic anomaly data
+# -----------------------------
+def generate_dummy_mag(size=200):
+    np.random.seed(42)
+    obs = np.random.normal(0, 10, (size, size))
+    regional = np.random.normal(0, 5, (size, size))
+    residual = obs - regional
+    return obs, regional, residual
+
+
+obs, regional, residual = generate_dummy_mag()
+
+# -----------------------------
+# Sidebar Controls
+# -----------------------------
+st.sidebar.title("Kontrol Peta Anomali Magnetik")
+
+# Pilihan peta
+map_choice = st.sidebar.radio(
+    "Pilih Jenis Peta:",
+    ["Observasi", "Regional", "Residual"]
+)
+
+# Pilihan colormap
+colormap_list = [
+    "viridis", "plasma", "inferno", "magma", "cividis", 
+    "jet", "turbo", "seismic", "terrain", "coolwarm", "gray"
+]
+cmap_choice = st.sidebar.selectbox("Pilih Colormap", colormap_list)
+
+# Mode Auto / Manual scale
+scale_mode = st.sidebar.radio("Scale Mode", ["Auto", "Manual"])
+
+if map_choice == "Observasi":
+    data = obs
+elif map_choice == "Regional":
+    data = regional
+else:
+    data = residual
+
+# Slider vmin dan vmax untuk mode Manual
+if scale_mode == "Manual":
+    vmin = st.sidebar.slider("vmin", float(data.min()), float(data.max()), float(data.min()))
+    vmax = st.sidebar.slider("vmax", float(data.min()), float(data.max()), float(data.max()))
+else:
+    vmin, vmax = None, None
+
+# Opsi tambahan: membalik sumbu Y
+flip_y = st.sidebar.checkbox("Balik Sumbu Y (Flip Vertical)")
+
+# Opsi simpan gambar
+enable_save = st.sidebar.checkbox("Aktifkan opsi simpan gambar")
+
+# Tombol simpan
+save_button = None
+if enable_save:
+    save_button = st.sidebar.button("Simpan Peta sebagai PNG")
+
+# -----------------------------
+# Plotting
+# -----------------------------
+st.title("Peta Anomali Magnetik")
+
+fig, ax = plt.subplots(figsize=(7, 6))
+
+img = ax.imshow(
+    np.flipud(data) if flip_y else data,
+    cmap=cmap_choice,
+    vmin=vmin,
+    vmax=vmax,
+    aspect="equal"
+)
+
+ax.set_title(f"Peta Anomali Magnetik: {map_choice}")
+plt.colorbar(img, ax=ax, shrink=0.8)
+
+st.pyplot(fig)
+
+# -----------------------------
+# Save image if requested
+# -----------------------------
+if save_button:
+    buffer = io.BytesIO()
+    fig.savefig(buffer, format="png", dpi=300)
+    st.sidebar.download_button(
+        "Download PNG",
+        data=buffer.getvalue(),
+        file_name=f"{map_choice.lower()}_magnetic_map.png",
+        mime="image/png"
+    )

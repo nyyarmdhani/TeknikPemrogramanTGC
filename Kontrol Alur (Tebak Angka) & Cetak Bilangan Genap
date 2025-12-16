@@ -1,0 +1,21 @@
+print("--- Permainan Tebak Angka ---")
+angka_rahasia = 17
+percobaan = 0
+
+while True:
+    tebakan = int(input("Tebak angka (1-100): "))
+    percobaan += 1
+    
+    if tebakan < angka_rahasia:
+        print("Terlalu kecil! Coba lagi.")
+    elif tebakan > angka_rahasia:
+        print("Terlalu besar! Coba lagi.")
+    else:
+        print(f"Selamat! Anda berhasil menebak angka {angka_rahasia} dalam {percobaan} percobaan.")
+        break
+
+print("--- Bilangan Genap 1-50 ---")
+for bilangan in range(1, 51):
+    if bilangan % 2 == 0:
+        print(bilangan, end=" ")
+print()  # untuk baris baru

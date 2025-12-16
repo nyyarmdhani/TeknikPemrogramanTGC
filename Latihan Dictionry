@@ -1,0 +1,21 @@
+mahasiswa = {
+    "124180062": {"nama": "Yuko Putri Wulandari", "ipk": 3.75},
+    "124120054": {"nama": "Nia Ramadhani", "ipk": 3.90},
+    "124260147": {"nama": "Ahmad Aziz Ibrahim Syah", "ipk": 3.65}
+}
+
+# Cari mahasiswa dengan IPK tertinggi
+mahasiswa_tertinggi = max(mahasiswa.items(), key=lambda x: x[1]['ipk'])
+print(f"Mahasiswa dengan IPK tertinggi: {mahasiswa_tertinggi[1]['nama']}")
+
+
+
+nilai_ujian = {
+    "Yuko": [100, 90, 80],
+    "Nia": [80, 90, 100],
+    "Gerry": [90, 95, 100]
+}
+
+for nama, nilai_list in nilai_ujian.items():
+    rata_rata = sum(nilai_list) / len(nilai_list)
+    print(f"{nama}: Rata-rata = {rata_rata:.2f}")

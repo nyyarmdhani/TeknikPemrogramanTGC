@@ -1,0 +1,35 @@
+# Buat daftar (list) angka-angka baru
+daftar_angka_baru = [10, 25, 5, 30, 15, 40, 20]
+
+print(f"Daftar angka baru: {daftar_angka_baru}")
+
+# Menghitung jumlah semua angka dalam daftar
+jumlah_total = sum(daftar_angka_baru)
+print(f"Jumlah total angka: {jumlah_total}")
+
+# Menghitung rata-rata angka dalam daftar
+rata_rata = jumlah_total / len(daftar_angka_baru)
+print(f"Rata-rata angka: {rata_rata}")
+
+# Mencari angka terbesar dalam daftar
+angka_terbesar = max(daftar_angka_baru)
+print(f"Angka terbesar: {angka_terbesar}")
+
+# Mencari angka terkecil dalam daftar
+angka_terkecil = min(daftar_angka_baru)
+print(f"Angka terkecil: {angka_terkecil}")
+Output: 
+Daftar angka baru: [10, 25, 5, 30, 15, 40, 20]
+Jumlah total angka: 145
+Rata-rata angka: 20.714285714285715
+Angka terbesar: 40
+Angka terkecil: 5
+
+
+
+# Buat list nama mahasiswa
+mahasiswa = ["Nia Ramadhani ", "Yuko Putri Wulandari", "Ahmad Aziz Ibrahim", "Gerry Sinaga"]
+# Urutkan secara alfabetis
+mahasiswa.sort()
+print(f"List nama setelah diurutkan: {mahasiswa}")
+

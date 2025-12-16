@@ -1,0 +1,24 @@
+# Judul Program
+# Program ini dibuat untuk menampilkan biodata singkat
+# Dibuat oleh : (Nia Ramadhani)
+# Tanggal     : (17 September 2025)
+
+"""
+Blok komentar multi-baris.
+Program Python sederhana untuk menampilkan biodata ke layar.
+"""
+
+# Menampilkan judul
+print("=== BIODATA MAHASISWA ===")
+print()
+
+# Data diri
+print("Nama     : Nia Ramadhani")
+print("NIM      : 124120054")
+print("Jurusan  : Teknik Geofisika")
+print("Angkatan : 2024")
+
+# Hobi
+print("Hobi     : Membaca dan menulis")
+
+print("\n--- Terima Kasih ---")

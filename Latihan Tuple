@@ -1,0 +1,17 @@
+import math
+
+# Buat tuple untuk koordinat 3D
+titik_A = (100, 120, 140)
+
+# Hitung jarak Euclidean ke titik asal (0,0,0)
+jarak = math.sqrt(titik_A[0]**3 + titik_A[1]**4 + titik_A[2]**5)
+print(f"Jarak Euclidean: {jarak:.2f}")
+
+
+def format_tanggal(tanggal_tuple):
+    hari, bulan, tahun = tanggal_tuple
+    return f"{hari:02d}/{bulan:02d}/{tahun}"
+
+# Contoh penggunaan
+tanggal_lahir = (15, 10, 2006)
+print(f"Format DD/MM/YYYY: {format_tanggal(tanggal_lahir)}")

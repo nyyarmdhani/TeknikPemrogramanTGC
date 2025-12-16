@@ -1,0 +1,106 @@
+# Fungsi 1: QC Data Seismik
+def qc_seismik(data, ambang_offset):
+    laporan = {}
+    for survey_name, survey_data in data.items():
+        ok_count = 0
+        bad_count = 0
+
+        for trace in survey_data["seismik"]:
+            # Asumsi QC_flag sudah ada dari data_survei
+            if trace["offset"] > ambang_offset:
+                trace["QC_flag"] = "BAD"
+                bad_count += 1
+            else:
+                # Hanya menambahkan jika sudah OK atau menjadi OK
+                ok_count += 1
+
+        laporan[survey_name] = {"OK": ok_count, "BAD": bad_count}
+
+    return laporan
+
+# Fungsi 2: Statistik Gravitasi
+def statistik_gravitasi(data):
+    rata_per_survey = {}
+    semua_nilai = []
+
+    for survey_name, survey_data in data.items():
+        nilai_gravitasi = [point["nilai"] for point in survey_data["gravitasi"]]
+        rata_per_survey[survey_name] = sum(nilai_gravitasi) / len(nilai_gravitasi)
+        semua_nilai.extend(nilai_gravitasi)
+
+    return {
+        "rata_per_survey": rata_per_survey,
+        "terendah": min(semua_nilai),
+        "tertinggi": max(semua_nilai)
+    }
+
+# Fungsi 3: Analisis Magnetik
+def analisis_magnetik(data):
+    semua_nilai = []
+
+    for survey_data in data.values():
+        for point in survey_data["magnetik"]:
+            semua_nilai.append(point["nilai"])
+
+    nilai_unik = sorted(set(semua_nilai))
+
+    return {
+        "semua_nilai": semua_nilai,
+        "nilai_unik": nilai_unik,
+        "jumlah_unik": len(nilai_unik)
+    }
+
+print("\n=== DATA SURVEY GEOFISIKA BARU ===")
+
+data_survei_baru = {
+    "Survey_Charlie": {
+        "seismik": [
+            {"trace_id": 5, "offset": 150, "QC_flag": "OK"},
+            {"trace_id": 6, "offset": 280, "QC_flag": "BAD"},
+            {"trace_id": 7, "offset": 190, "QC_flag": "OK"}
+        ],
+        "gravitasi": [
+            {"point_id": "G5", "nilai": 9.85},
+            {"point_id": "G6", "nilai": 9.78},
+            {"point_id": "G7", "nilai": 9.72}
+        ],
+        "magnetik": [
+            {"point_id": "M5", "nilai": 51.0},
+            {"point_id": "M6", "nilai": 50.5},
+            {"point_id": "M7", "nilai": 51.2}
+        ]
+    },
+    "Survey_Delta": {
+        "seismik": [
+            {"trace_id": 8, "offset": 100, "QC_flag": "OK"},
+            {"trace_id": 9, "offset": 210, "QC_flag": "OK"},
+            {"trace_id": 10, "offset": 320, "QC_flag": "BAD"}
+        ],
+        "gravitasi": [
+            {"point_id": "G8", "nilai": 9.68},
+            {"point_id": "G9", "nilai": 9.60}
+        ],
+        "magnetik": [
+            {"point_id": "M8", "nilai": 49.5},
+            {"point_id": "M9", "nilai": 48.9}
+        ]
+    }
+}
+
+# Eksekusi fungsi dengan data survei baru
+print("1. QC Data Seismik (ambang_offset = 200, Data Baru):")
+laporan_qc_baru = qc_seismik(data_survei_baru, 200)
+for survey, stat in laporan_qc_baru.items():
+    print(f"   {survey}: OK={stat['OK']}, BAD={stat['BAD']}")
+
+print("\n2. Statistik Gravitasi (Data Baru):")
+stat_gravitasi_baru = statistik_gravitasi(data_survei_baru)
+print(f"   Rata-rata per survey: {stat_gravitasi_baru['rata_per_survey']}")
+print(f"   Nilai terendah: {stat_gravitasi_baru['terendah']}")
+print(f"   Nilai tertinggi: {stat_gravitasi_baru['tertinggi']}")
+
+print("\n3. Analisis Magnetik (Data Baru):")
+analisis_mag_baru = analisis_magnetik(data_survei_baru)
+print(f"   Semua nilai: {analisis_mag_baru['semua_nilai']}")
+print(f"   Nilai unik (terurut): {analisis_mag_baru['nilai_unik']}")
+print(f"   Jumlah nilai unik: {analisis_mag_baru['jumlah_unik']}")

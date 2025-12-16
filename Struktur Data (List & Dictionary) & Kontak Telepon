@@ -1,0 +1,19 @@
+# Struktur Data
+print("--- Daftar Belanja ---")
+daftar_belanja = []
+for i in range(1, 4):
+    barang = input(f"Masukkan barang ke-{i}: ")
+    daftar_belanja.append(barang)
+print(f"Daftar belanja akhir: {daftar_belanja}")
+
+# Kontak Telepon
+print("--- Kontak Telepon ---")
+kontak = {
+    "nama": "Nia Ramadhani",
+    "no_hp": "0818271155010",
+    "email": "nia.124120054@student.itera.ac.id",
+    "kota": "Bandar Lampung"
+}
+print(f"Kontak: {kontak['nama']}")
+print(f"Nomor HP: {kontak['no_hp']}")
+print(f"Email: {kontak['email']}")

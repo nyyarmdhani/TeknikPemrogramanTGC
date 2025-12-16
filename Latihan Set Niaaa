@@ -1,0 +1,17 @@
+semester_ganjil = {"Fisika Dasar 1", "Matematika Dasar 1", "Kimia Dasar 1", "Lingkungan Hidup Sumatera"}
+semester_genap = {"Pengantar Teknik Geofisika", "Bahasa Indonesia", "Pengantar Komputer dan Software", "Praktikum Fisika Dasar 2"}
+
+# Mata kuliah yang hanya ada di semester ganjil
+hanya_ganjil = semester_ganjil - semester_genap
+
+# Irisan mata kuliah
+irisan = semester_ganjil & semester_genap
+
+print(f"Mata kuliah hanya di semester ganjil: {hanya_ganjil}")
+print(f"Irisan mata kuliah: {irisan}")
+
+
+
+data_duplikat = [100, 200, 200, 300, 300, 300, 400, 500, 500, 500, 500]
+data_unik = set(data_duplikat)
+print(f"Set (unik): {data_unik}")

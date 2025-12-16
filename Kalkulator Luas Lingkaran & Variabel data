@@ -1,0 +1,25 @@
+# Mendefinisikan nilai Pi (sesuai permintaan, menggunakan 3.14)
+PI = 3.14
+
+# Meminta input jari-jari dari pengguna
+# Menggunakan float() untuk memastikan input dapat berupa bilangan desimal
+try:
+    jari_jari = float(input("Masukkan panjang jari-jari lingkaran (dalam satuan apapun): "))
+
+    # Memastikan jari-jari tidak negatif
+    if jari_jari < 0:
+        print("Jari-jari tidak boleh bernilai negatif.")
+    else:
+        # Menghitung Luas Lingkaran: Luas = PI * r * r
+        luas_lingkaran = PI * jari_jari * jari_jari
+
+        # Menampilkan hasil
+        # Menggunakan f-string untuk memformat output dan membatasi desimal
+        print(f"\n--- Hasil Perhitungan ---")
+        print(f"Nilai Pi (π) yang digunakan: {PI}")
+        print(f"Jari-jari (r): {jari_jari}")
+        print(f"Luas Lingkaran: {luas_lingkaran:.2f} satuan persegi")
+
+except ValueError:
+    # Menangani jika pengguna memasukkan input yang tidak valid (bukan angka)
+    print("Input tidak valid. Harap masukkan nilai numerik untuk jari-jari.")

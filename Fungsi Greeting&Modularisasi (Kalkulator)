@@ -1,0 +1,68 @@
+def buat_salam(nama, waktu="pagi"):
+    return f"Selamat {waktu}, {nama}!"
+
+# Memanggil fungsi
+salam = buat_salam("Pak Wira", "siang")
+print(salam)
+print(buat_salam(" Buk Nia"))  # menggunakan nilai default
+
+def tambah(a, b):
+    """Menambah dua angka."""
+    return a + b
+
+def kurang(a, b):
+    """Mengurangi dua angka."""
+    return a - b
+
+def kali(a, b):
+    """Mengalikan dua angka."""
+    return a * b
+
+def bagi(a, b):
+    """Membagi dua angka."""
+    if b == 0:
+        return "Error! Pembagian dengan nol."
+    return a / b
+
+def pangkat(angka, eksponen):
+    """Menghitung pangkat dari angka."""
+    return angka ** eksponen
+
+def tampilkan_menu():
+    print("\n--- Kalkulator Sederhana ---")
+    print("1. Penjumlahan")
+    print("2. Pengurangan")
+    print("3. Perkalian")
+    print("4. Pembagian")
+    print("5. Pangkat")
+    print("6. Keluar")
+
+while True:
+    tampilkan_menu()
+    pilihan = input("Pilih operasi (1-6): ")
+
+    if pilihan == '6':
+        print("Terima kasih telah menggunakan kalkulator!")
+        break
+
+    if pilihan in ['1', '2', '3', '4', '5']:
+        a = float(input("Masukkan angka pertama: "))
+        b = float(input("Masukkan angka kedua: "))
+
+        if pilihan == '1':
+            hasil = tambah(a, b)
+        elif pilihan == '2':
+            hasil = kurang(a, b)
+        elif pilihan == '3':
+            hasil = kali(a, b)
+        elif pilihan == '4':
+            hasil = bagi(a, b)
+        elif pilihan == '5':
+            hasil = pangkat(a, b)
+
+        print(f"Hasilnya adalah: {hasil}")
+    else:
+        print("Pilihan tidak valid!")
+
+
+

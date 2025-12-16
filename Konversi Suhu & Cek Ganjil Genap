@@ -1,0 +1,11 @@
+#suhu
+print("--- Konverter Suhu Celcius ke Fahrenheit ---")
+celcius = float(input("Masukkan suhu dalam Celcius: "))
+fahrenheit = (celcius * 9/5) + 32
+print(f"{celcius}°C = {fahrenheit:.1f}°F")
+
+# cek angka
+print("--- Cek Angka Ganjil/Genap ---")
+angka = int(input("Masukkan bilangan bulat: "))
+hasil = "genap" if angka % 2 == 0 else "ganjil"
+print(f"{angka} adalah bilangan {hasil}.")
